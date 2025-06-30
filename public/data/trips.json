@@ -1,0 +1,373 @@
+[
+  {
+    "id": 1,
+    "slug": "tsingy-de-bemaraha",
+    "titre": "Tsingy de Bemaraha",
+    "description": "Randonnée extrême dans un site classé UNESCO avec ponts suspendus et pics calcaires spectaculaires.",
+    "prix": 580,
+    "image": "/images/tsingy1.jpg",
+    "images": [
+      "/images/tsingy2.jpg",
+      "/images/tsingy3.jpg",
+      "/images/tsingy4.jpg",
+      "/images/tsingy5.jpg"
+    ],
+    "durée": 5,
+    "note": 4.8,
+    "passagers": 6,
+    "localisation": "Melaky",
+    "activités": {
+      "1": [
+        {
+          "titre": "Arrivée et installation",
+          "description": "Accueil à l’aéroport puis transfert à l’hôtel.",
+          "image": "/images/tsingy2.jpg"
+        },
+        {
+          "titre": "Visite du village local",
+          "description": "Découverte de la culture locale et rencontre avec les habitants.",
+          "image": "/images/tsingy3.jpg"
+        }
+      ],
+      "2": [
+        {
+          "titre": "Randonnée dans les Tsingy",
+          "description": "Exploration des formations karstiques uniques avec guide.",
+          "image": "/images/tsingy4.jpg"
+        }
+      ],
+      "3": [
+        {
+          "titre": "Ponts suspendus",
+          "description": "Traversée des ponts suspendus offrant des vues imprenables.",
+          "image": "/images/tsingy5.jpg"
+        },
+        {
+          "titre": "Observation de la faune",
+          "description": "Observation des espèces endémiques et de la biodiversité.",
+          "image": "/images/tsingy2.jpg"
+        }
+      ],
+      "4": [
+        {
+          "titre": "Repos et baignade",
+          "description": "Moment détente près de la rivière.",
+          "image": "/images/tsingy1.jpg"
+        }
+      ],
+      "5": [
+        {
+          "titre": "Retour et départ",
+          "description": "Retour vers la ville et fin du séjour.",
+          "image": "/images/activites/depart.jpg"
+        }
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "slug": "ascension-du-pic-boby",
+    "titre": "Ascension du Pic Boby",
+    "description": "Trekking en altitude dans le parc de l’Andringitra, avec bivouac et vue panoramique.",
+    "prix": 450,
+    "image": "/images/andringitra1.jpg",
+    "images": [
+      "/images/andringitra2.jpg",
+      "/images/andringitra3.jpg",
+      "/images/andringitra4.jpg",
+      "/images/andringitra5.jpg"
+    ],
+    "durée": 4,
+    "note": 4.7,
+    "passagers": 12,
+    "localisation": "Haute Matsiatra"
+  },
+  {
+    "id": 3,
+    "slug": "parc-national-de-l-isalo",
+    "titre": "Parc national de l’Isalo",
+    "description": "Aventure à travers canyons, piscines naturelles et paysages désertiques uniques.",
+    "prix": 390,
+    "image": "/images/isalo3.jpg",
+    "images": [
+      "/images/isalo1.jpg",
+      "/images/isalo2.jpg",
+      "/images/isalo4.jpg",
+      "/images/isalo5.jpg"
+    ],
+    "durée": 3,
+    "note": 4.6,
+    "passagers": 6,
+    "localisation": "Ihorombe"
+  },
+  {
+    "id": 4,
+    "slug": "descente-de-la-tsiribihina",
+    "titre": "Descente de la Tsiribihina",
+    "description": "Canoë traditionnel, faune et bivouac sauvage au fil de l’eau.",
+    "prix": 490,
+    "image": "/images/tsiribihina.jpg",
+    "images": [
+      "/images/tsiribihina1.jpg",
+      "/images/tsiribihina2.jpg",
+      "/images/tsiribihina3.jpg",
+      "/images/tsiribihina4.jpg"
+    ],
+    "durée": 4,
+    "note": 4.5,
+    "passagers": 9,
+    "localisation": "Menabe"
+  },
+  {
+    "id": 5,
+    "slug": "road-trip-fort-dauphin",
+    "titre": "Road trip Fort-Dauphin",
+    "description": "Exploration du sud extrême entre plages désertes, baobabs et culture Antandroy.",
+    "prix": 520,
+    "image": "/images/farady1.jpg",
+    "images": [
+      "/images/farady2.jpg",
+      "/images/farady3.jpg",
+      "/images/farady4.jpg",
+      "/images/farady5.jpg"
+    ],
+    "durée": 6,
+    "note": 4.6,
+    "passagers": 6,
+    "localisation": "Anosy"
+  },
+  {
+    "id": 6,
+    "slug": "montagne-d-ambre",
+    "titre": "Montagne d’Ambre",
+    "description": "Découverte de chutes, lacs de cratère et biodiversité dans une forêt humide.",
+    "prix": 310,
+    "image": "/images/ambre1.jpg",
+    "images": [
+      "/images/ambre2.jpg",
+      "/images/ambre3.jpg",
+      "/images/ambre4.jpg"
+    ],
+    "durée": 2,
+    "passagers": 6,
+    "note": 4.4,
+    "localisation": "Diana"
+  },
+  {
+    "id": 7,
+    "slug": "parc-de-ranomafana",
+    "titre": "Parc de Ranomafana",
+    "description": "Explorez une forêt tropicale avec lémuriens, oiseaux rares et sources chaudes.",
+    "prix": 360,
+    "image": "/images/ranomafana.jpg",
+    "images": [
+      "/images/ranomafana1.jpg",
+      "/images/ranomafana2.jpg",
+      "/images/ranomafana3.jpg",
+      "/images/ranomafana4.jpg",
+      "/images/ranomafana5.jpg"
+    ],
+    "durée": 3,
+    "note": 4.7,
+    "passagers": 6,
+    "localisation": "Vatovavy"
+  },
+  {
+    "id": 8,
+    "slug": "reserve-d-ankarana",
+    "titre": "Réserve d’Ankarana",
+    "description": "Grottes, tsingy, rivières souterraines et animaux rares dans le nord de l’île.",
+    "prix": 420,
+    "image": "/images/ankarana1.jpg",
+    "images": [
+      "/images/ankarana2.jpg",
+      "/images/ankarana3.jpg",
+      "/images/ankarana4.jpg",
+      "/images/ankarana5.jpg"
+    ],
+    "durée": 3,
+    "note": 4.5,
+    "passagers": 6,
+    "localisation": "Diana"
+  },
+  {
+    "id": 9,
+    "slug": "parc-de-masoala",
+    "titre": "Parc de Masoala",
+    "description": "Expédition dans la plus grande forêt primaire de Madagascar, combinée à la mer.",
+    "prix": 620,
+    "image": "/images/masoala1.jpg",
+    "images": [
+      "/images/masoala2.jpg",
+      "/images/masoala3.jpg",
+      "/images/masoala4.jpg",
+      "/images/masoala5.jpg"
+    ],
+    "durée": 5,
+    "note": 4.8,
+    "passagers": 6,
+    "localisation": "Analanjirofo"
+  },
+  {
+    "id": 10,
+    "slug": "reserve-de-lokobe",
+    "titre": "Réserve de Lokobe",
+    "description": "Mini jungle à Nosy Be accessible en pirogue, idéale pour voir caméléons et lémuriens.",
+    "prix": 290,
+    "image": "/images/lokobe1.jpg",
+    "images": [
+      "/images/lokobe2.jpg",
+      "/images/lokobe3.jpg",
+      "/images/lokobe4.jpg",
+      "/images/lokobe.jpg"
+    ],
+    "durée": 2,
+    "note": 4.4,
+    "passagers": 6,
+    "localisation": "Nosy Be"
+  },
+  {
+    "id": 11,
+    "slug": "baleines-a-sainte-marie",
+    "titre": "Baleines à Sainte-Marie",
+    "description": "Observation des baleines à bosse (juillet-octobre) dans un cadre idyllique.",
+    "prix": 540,
+    "image": "/images/saintemarie1.jpg",
+    "images": [
+      "/images/saintemarie2.jpg",
+      "/images/saintemarie3.jpg",
+      "/images/saintemarie4.jpg",
+      "/images/saintemarie5.jpg"
+    ],
+    "durée": 3,
+    "note": 4.9,
+    "passagers": 16,
+    "localisation": "Sainte-Marie"
+  },
+  {
+    "id": 13,
+    "slug": "nosy-be-et-archipel-des-mitsio",
+    "titre": "Nosy Be & Archipel des Mitsio",
+    "description": "Séjour balnéaire haut de gamme avec snorkeling, catamaran et détente.",
+    "prix": 880,
+    "image": "/images/nosybe1.jpg",
+    "images": [
+      "/images/nosybe2.jpg",
+      "/images/nosybe3.jpg",
+      "/images/nosybe4.jpg",
+      "/images/nosybe5.jpg"
+    ],
+    "durée": 6,
+    "note": 4.8,
+    "passagers": 6,
+    "localisation": "Nosy Be"
+  },
+  {
+    "id": 14,
+    "slug": "nosy-iranja",
+    "titre": "Nosy Iranja",
+    "description": "Une île de carte postale avec banc de sable et eaux cristallines.",
+    "prix": 660,
+    "image": "/images/iranja1.jpg",
+    "images": [
+      "/images/iranja2.jpg",
+      "/images/iranja3.jpg",
+      "/images/iranja4.jpg",
+      "/images/iranja5.jpg"
+    ],
+    "durée": 3,
+    "note": 4.9,
+    "passagers": 7,
+    "localisation": "Nosy Iranja"
+  },
+  {
+    "id": 15,
+    "slug": "ifaty-et-mangily",
+    "titre": "Ifaty & Mangily",
+    "description": "Plages calmes, pêche locale et lagon préservé à explorer à pied ou en pirogue.",
+    "prix": 410,
+    "image": "/images/ifaty1.jpg",
+    "images": [
+      "/images/ifaty2.jpg",
+      "/images/ifaty3.jpg",
+      "/images/ifaty4.jpg",
+      "/images/ifaty5.jpg"
+    ],
+    "durée": 4,
+    "note": 4.6,
+    "passagers": 8,
+    "localisation": "Atsimo-Andrefana"
+  },
+  {
+    "id": 16,
+    "slug": "anakao",
+    "titre": "Anakao",
+    "description": "Spot de surf, plages sauvages et villages de pêcheurs authentiques.",
+    "prix": 460,
+    "image": "/images/anakao1.jpg",
+    "images": [
+      "/images/anakao2.jpg",
+      "/images/anakao3.jpg",
+      "/images/anakao4.jpg",
+      "/images/anakao5.jpg"
+    ],
+    "durée": 4,
+    "note": 4.5,
+    "passagers": 13,
+    "localisation": "Atsimo-Andrefana"
+  },
+  {
+    "id": 17,
+    "slug": "ile-aux-nattes",
+    "titre": "Île aux Nattes",
+    "description": "Petit coin de paradis au sud de Sainte-Marie, parfait pour un séjour romantique.",
+    "prix": 510,
+    "image": "/images/ile-natte1.jpg",
+    "images": [
+      "/images/ile-natte2.jpg",
+      "/images/ile-natte3.jpg",
+      "/images/ile-natte4.jpg",
+      "/images/ile-natte5.jpg"
+    ],
+    "durée": 3,
+    "note": 4.8,
+    "passagers": 2,
+    "localisation": "Sainte-Marie"
+  },
+  {
+    "id": 18,
+    "slug": "romance-au-coucher-de-soleil-a-morondava",
+    "titre": "Romance au coucher de soleil à Morondava",
+    "description": "Balade main dans la main à l’Allée des Baobabs, dîner romantique en bord de mer et nuit en lodge.",
+    "prix": 480,
+    "image": "/images/morondava1.jpg",
+    "images": [
+      "/images/morondava2.jpg",
+      "/images/morondava3.jpg",
+      "/images/morondava4.jpg",
+      "/images/morondava5.jpg"
+    ],
+    "passagers": 2,
+    "durée": 3,
+    "note": 4.8,
+    "localisation": "Menabe"
+  },
+  {
+    "id": 19,
+    "slug": "sejour-exclusif-a-tsarabanjina",
+    "titre": "Séjour exclusif à Tsarabanjina",
+    "description": "Île privée aux eaux turquoise, parfaite pour une lune de miel ou une escapade en amoureux.",
+    "prix": 920,
+    "passagers": 6,
+    "image": "/images/tsarabanjina1.jpg",
+    "images": [
+      "/images/tsarabanjina2.jpg",
+      "/images/tsarabanjina3.jpg",
+      "/images/tsarabanjina4.jpg",
+      "/images/tsarabanjina5.jpg"
+    ],
+    "durée": 4,
+    "note": 5.0,
+    "localisation": "Archipel des Mitsio"
+  }
+]

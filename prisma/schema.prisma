@@ -8,10 +8,49 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model newsletter {
-  id               Int     @id @default(autoincrement())
+model Newsletter {
+  id               String  @id @default(cuid())
   email            String  @unique
   unsubscribeToken String?
 
   @@map("newsletter")
+}
+
+model VoyageOrganise {
+  id          String     @id @default(cuid())
+  titre       String
+  lieu        String
+  duree       String
+  type        TypeVoyage
+  prixParPers Float
+  notes       Float?
+  dateDepart  DateTime
+  dateRetour  DateTime
+  details     Detail[]   @relation("VoyageDetails")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("voyage_organise")
+}
+
+enum TypeVoyage {
+  AVENTURE
+  NATURE
+  PLAGE
+  CULTURE
+  ECO_TOURISME
+  FAMILLE
+  DETENTE
+  RANDONNEE
+  AMOUREUX
+}
+
+model Detail {
+  id       String         @id @default(cuid())
+  url      String
+  voyage   VoyageOrganise @relation("VoyageDetails", fields: [voyageId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  voyageId String
+
+  @@map("details")
 }
