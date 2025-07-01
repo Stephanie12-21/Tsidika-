@@ -1,5 +1,4 @@
-import Header from "@/components/sections/header/Header";
-import Footer from "@/components/sections/footer/Footer";
+import { Header } from "@/components/sections/header/Header";
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -9,7 +8,6 @@ export default function RootLayout({
     <div>
       <Header />
       {children}
-      <Footer />
     </div>
   );
 }

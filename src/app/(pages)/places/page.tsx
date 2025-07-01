@@ -38,9 +38,9 @@ const Places = () => {
   const filteredTrips = trips;
 
   return (
-    <div className="min-h-screen  p-4 md:p-6 lg:p-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-8">
+    <div className="min-h-screen px-4">
+      <div className=" mx-auto px-12">
+        <div className="mb-8 mt-36">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
             Découvrez nos destinations
           </h1>
