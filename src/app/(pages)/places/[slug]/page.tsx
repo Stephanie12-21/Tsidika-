@@ -43,7 +43,7 @@ export default function TripPage({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const unwrappedParams = use(params); // <-- ici on déplie la promesse
+  const unwrappedParams = use(params);
   const slug = unwrappedParams.slug;
 
   const [trip, setTrip] = useState<Trip | null>(null);
@@ -70,7 +70,6 @@ export default function TripPage({
 
       setTrip(foundTrip);
 
-      // Crée un slide par image dans le tableau "images" (si pas présent fallback sur image unique)
       const tripSlides =
         foundTrip.images && foundTrip.images.length > 0
           ? foundTrip.images.map((img, idx) => ({
@@ -123,7 +122,6 @@ export default function TripPage({
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* Background Images with Animation */}
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}
@@ -185,7 +183,6 @@ export default function TripPage({
               </motion.p>
             </motion.div>
 
-            {/* Right Side - Trip Details Card */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
@@ -294,25 +291,6 @@ export default function TripPage({
           </div>
         )}
       </div>
-
-      {/* Auto-play Progress Bar */}
-      {slides.length > 1 && (
-        <div className="absolute bottom-0 left-0 right-0 z-20">
-          <div className="h-1 bg-white/20">
-            <motion.div
-              className="h-full bg-gradient-to-r from-[#f36f0f] to-[#ff8533] shadow-sm shadow-[#f36f0f]/50"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{
-                duration: 5,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "linear",
-              }}
-              style={{ transformOrigin: "left" }}
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 }
