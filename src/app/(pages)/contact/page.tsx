@@ -7,23 +7,21 @@ import InfoModal from "@/app/(modal)/InfoModal";
 import ContactDetails from "@/components/sections/sections/contactdetails";
 import ContactForm from "@/components/sections/sections/contactform";
 
+type ModalType = "success" | "error" | "info" | null;
+
 export default function ContactPage() {
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [showErrorModal, setShowErrorModal] = useState(false);
-  const [showInfoModal, setShowInfoModal] = useState(false);
+  const [modalType, setModalType] = useState<ModalType>(null);
   const [modalTitle, setModalTitle] = useState("");
   const [modalMessage, setModalMessage] = useState("");
 
-  const handleSuccess = (title: string, message: string) => {
+  const showModal = (type: ModalType, title: string, message: string) => {
+    setModalType(type);
     setModalTitle(title);
     setModalMessage(message);
-    setShowSuccessModal(true);
   };
 
-  const handleError = (title: string, message: string) => {
-    setModalTitle(title);
-    setModalMessage(message);
-    setShowErrorModal(true);
+  const closeModal = () => {
+    setModalType(null);
   };
 
   return (
@@ -39,29 +37,38 @@ export default function ContactPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <ContactForm onSuccess={handleSuccess} onError={handleError} />
+          <ContactForm
+            onSuccess={(title, message) => showModal("success", title, message)}
+            onError={(title, message) => showModal("error", title, message)}
+          />
           <ContactDetails />
         </div>
       </div>
 
-      <SuccessModal
-        open={showSuccessModal}
-        onClose={() => setShowSuccessModal(false)}
-        title={modalTitle}
-        message={modalMessage}
-      />
-      <ErrorModal
-        open={showErrorModal}
-        onClose={() => setShowErrorModal(false)}
-        title={modalTitle}
-        message={modalMessage}
-      />
-      <InfoModal
-        open={showInfoModal}
-        onClose={() => setShowInfoModal(false)}
-        title={modalTitle}
-        message={modalMessage}
-      />
+      {modalType === "success" && (
+        <SuccessModal
+          open
+          onClose={closeModal}
+          title={modalTitle}
+          message={modalMessage}
+        />
+      )}
+      {modalType === "error" && (
+        <ErrorModal
+          open
+          onClose={closeModal}
+          title={modalTitle}
+          message={modalMessage}
+        />
+      )}
+      {modalType === "info" && (
+        <InfoModal
+          open
+          onClose={closeModal}
+          title={modalTitle}
+          message={modalMessage}
+        />
+      )}
     </div>
   );
 }
