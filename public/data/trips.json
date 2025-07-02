@@ -7,6 +7,7 @@
     "prix": 580,
     "image": "/images/tsingy1.jpg",
     "images": [
+      "/images/tsingy1.jpg",
       "/images/tsingy2.jpg",
       "/images/tsingy3.jpg",
       "/images/tsingy4.jpg",
@@ -15,12 +16,128 @@
     "durée": 5,
     "note": 4.8,
     "passagers": 6,
-    "localisation": "Melaky",
+    "localisation": "Melaky, Madagascar",
+    "highlights": [
+      "Site classé UNESCO depuis 1990",
+      "Formations karstiques uniques au monde",
+      "Ponts suspendus à 40m de hauteur",
+      "Faune endémique de Madagascar",
+      "Randonnée d'aventure extrême",
+      "Paysages lunaires spectaculaires"
+    ],
+    "programme": {
+      "Jour 1": {
+        "titre": "Arrivée et découverte culturelle",
+        "description": "Accueil à l'aéroport de Morondava et première immersion dans la culture malgache",
+        "activites": [
+          "Accueil à l'aéroport de Morondava",
+          "Transfert en 4x4 vers Bekopaka (3h de route)",
+          "Installation au lodge écologique",
+          "Visite du village local de Bekopaka",
+          "Rencontre avec les habitants Sakalava",
+          "Briefing sécurité pour les randonnées",
+          "Dîner traditionnel malgache"
+        ],
+        "repas": ["Déjeuner", "Dîner"],
+        "hebergement": "Lodge écologique Bekopaka"
+      },
+      "Jour 2": {
+        "titre": "Exploration des Petits Tsingy",
+        "description": "Première approche des formations calcaires avec randonnée d'acclimatation",
+        "activites": [
+          "Petit-déjeuner au lodge",
+          "Départ vers le parc national (30 min)",
+          "Randonnée dans les Petits Tsingy (4h)",
+          "Initiation à l'escalade sur calcaire",
+          "Découverte des grottes et cavernes",
+          "Observation des lémuriens Decken's Sifaka",
+          "Pique-nique dans le parc",
+          "Retour au lodge en fin d'après-midi"
+        ],
+        "repas": ["Petit-déjeuner", "Déjeuner", "Dîner"],
+        "hebergement": "Lodge écologique Bekopaka"
+      },
+      "Jour 3": {
+        "titre": "Grands Tsingy et ponts suspendus",
+        "description": "Aventure extrême dans les formations les plus spectaculaires du parc",
+        "activites": [
+          "Départ matinal vers les Grands Tsingy",
+          "Équipement complet (harnais, casque, gants)",
+          "Randonnée technique avec via ferrata",
+          "Traversée des ponts suspendus (40m de hauteur)",
+          "Escalade des pics calcaires",
+          "Vue panoramique depuis les sommets",
+          "Exploration des canyons cachés",
+          "Observation de la faune endémique",
+          "Retour au coucher du soleil"
+        ],
+        "repas": ["Petit-déjeuner", "Déjeuner", "Dîner"],
+        "hebergement": "Lodge écologique Bekopaka"
+      },
+      "Jour 4": {
+        "titre": "Détente et activités optionnelles",
+        "description": "Journée plus tranquille avec baignade et découverte de la rivière",
+        "activites": [
+          "Grasse matinée et petit-déjeuner tardif",
+          "Descente vers la rivière Manambolo",
+          "Baignade dans les piscines naturelles",
+          "Exploration des grottes d'Anjohikinakina",
+          "Observation des crocodiles (en sécurité)",
+          "Pêche traditionnelle avec les locaux",
+          "Massage traditionnel malgache (optionnel)",
+          "Soirée contes et légendes locales"
+        ],
+        "repas": ["Petit-déjeuner", "Déjeuner", "Dîner"],
+        "hebergement": "Lodge écologique Bekopaka"
+      },
+      "Jour 5": {
+        "titre": "Retour et départ",
+        "description": "Derniers moments à Madagascar avant le retour",
+        "activites": [
+          "Petit-déjeuner au lodge",
+          "Dernière balade matinale (optionnelle)",
+          "Check-out et préparation des bagages",
+          "Route retour vers Morondava (3h)",
+          "Déjeuner en route dans un restaurant local",
+          "Visite de l'Allée des Baobabs (si temps)",
+          "Transfert à l'aéroport de Morondava",
+          "Vol retour"
+        ],
+        "repas": ["Petit-déjeuner", "Déjeuner"]
+      }
+    },
+    "inclus": [
+      "Vols domestiques Antananarivo-Morondava-Antananarivo",
+      "Transferts en 4x4 climatisé avec chauffeur",
+      "4 nuits en lodge écologique en pension complète",
+      "Guide spécialisé francophone pendant tout le séjour",
+      "Équipement de sécurité complet (harnais, casque, gants)",
+      "Droits d'entrée au Parc National Tsingy de Bemaraha",
+      "Toutes les randonnées et activités mentionnées",
+      "Porteurs pour l'équipement technique",
+      "Assurance accident et rapatriement",
+      "Carnet de voyage et carte détaillée",
+      "Assistance 24h/24 sur place"
+    ],
+    "nonInclus": [
+      "Vols internationaux vers Madagascar",
+      "Visa touristique Madagascar (35€)",
+      "Repas à Antananarivo et Morondava",
+      "Boissons alcoolisées et soft drinks",
+      "Pourboires guides et chauffeurs (recommandé 10-15€/jour)",
+      "Assurance annulation voyage (fortement recommandée)",
+      "Activités optionnelles non mentionnées",
+      "Massage traditionnel (25€/séance)",
+      "Souvenirs et achats personnels",
+      "Supplément chambre individuelle (+120€)",
+      "Vaccinations recommandées",
+      "Équipement personnel (chaussures de randonnée, vêtements techniques)"
+    ],
     "activités": {
       "1": [
         {
           "titre": "Arrivée et installation",
-          "description": "Accueil à l’aéroport puis transfert à l’hôtel.",
+          "description": "Accueil à l'aéroport puis transfert à l'hôtel.",
           "image": "/images/tsingy2.jpg"
         },
         {
@@ -64,6 +181,7 @@
       ]
     }
   },
+
   {
     "id": 2,
     "slug": "ascension-du-pic-boby",
@@ -82,24 +200,7 @@
     "passagers": 12,
     "localisation": "Haute Matsiatra"
   },
-  {
-    "id": 3,
-    "slug": "parc-national-de-l-isalo",
-    "titre": "Parc national de l’Isalo",
-    "description": "Aventure à travers canyons, piscines naturelles et paysages désertiques uniques.",
-    "prix": 390,
-    "image": "/images/isalo3.jpg",
-    "images": [
-      "/images/isalo1.jpg",
-      "/images/isalo2.jpg",
-      "/images/isalo4.jpg",
-      "/images/isalo5.jpg"
-    ],
-    "durée": 3,
-    "note": 4.6,
-    "passagers": 6,
-    "localisation": "Ihorombe"
-  },
+
   {
     "id": 4,
     "slug": "descente-de-la-tsiribihina",

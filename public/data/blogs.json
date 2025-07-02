@@ -1,0 +1,66 @@
+{
+  "blogPosts": [
+    {
+      "id": 1,
+      "title": "Les 10 destinations incontournables de 2024",
+      "description": "Découvrez les destinations qui feront rêver les voyageurs cette année.",
+      "author": "Sophie Martin",
+      "date": "15 janvier 2024",
+      "readTime": "5 min",
+      "image": "/placeholder.svg?height=300&width=500",
+      "tags": ["Destinations", "2024", "Voyage"],
+      "featured": true
+    },
+    {
+      "id": 2,
+      "title": "Guide pratique : Préparer son voyage au Japon",
+      "description": "Tous nos conseils pour organiser un séjour inoubliable au pays du soleil levant.",
+      "author": "Pierre Dubois",
+      "date": "12 janvier 2024",
+      "readTime": "8 min",
+      "image": "/placeholder.svg?height=300&width=500",
+      "tags": ["Japon", "Guide", "Asie"],
+      "featured": false
+    },
+    {
+      "id": 3,
+      "title": "Road trip en Islande : itinéraire de 10 jours",
+      "description": "Parcourez les paysages époustouflants de l'Islande avec notre itinéraire détaillé.",
+      "author": "Marie Laurent",
+      "date": "10 janvier 2024",
+      "readTime": "6 min",
+      "image": "/placeholder.svg?height=300&width=500",
+      "tags": ["Islande", "Road Trip", "Europe"],
+      "featured": false
+    },
+    {
+      "id": 4,
+      "title": "Bali : les meilleures plages secrètes",
+      "description": "Échappez aux foules et découvrez les plages cachées de Bali.",
+      "author": "Thomas Rousseau",
+      "date": "8 janvier 2024",
+      "readTime": "4 min",
+      "image": "/placeholder.svg?height=300&width=500",
+      "tags": ["Bali", "Plages", "Indonésie"],
+      "featured": false
+    },
+    {
+      "id": 5,
+      "title": "Safari en Tanzanie : guide complet",
+      "description": "Vivez l'aventure africaine avec nos conseils pour un safari réussi.",
+      "author": "Emma Leroy",
+      "date": "5 janvier 2024",
+      "readTime": "7 min",
+      "image": "/placeholder.svg?height=300&width=500",
+      "tags": ["Tanzanie", "Safari", "Afrique"],
+      "featured": false
+    }
+  ],
+  "categories": [
+    { "name": "Europe", "count": 12, "icon": "🏰" },
+    { "name": "Asie", "count": 8, "icon": "🏯" },
+    { "name": "Afrique", "count": 6, "icon": "🦁" },
+    { "name": "Amérique", "count": 10, "icon": "🗽" },
+    { "name": "Océanie", "count": 4, "icon": "🏄‍♂️" }
+  ]
+}

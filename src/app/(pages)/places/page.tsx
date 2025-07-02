@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Search, MapPin, Clock, Star } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 interface Trip {
   id: number;
@@ -23,10 +23,19 @@ interface Trip {
 
 const Places = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [trips, setTrips] = useState<Trip[]>([]);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
-  // Charger les données depuis le fichier JSON (dans public/data/trips.json)
+  const tripsPerPage = 6;
+
+  const pageFromUrl = parseInt(searchParams.get("page") || "1", 10);
+  const [currentPage, setCurrentPage] = useState(pageFromUrl);
+
+  useEffect(() => {
+    setCurrentPage(pageFromUrl);
+  }, [pageFromUrl]);
+
   useEffect(() => {
     fetch("/data/trips.json")
       .then((res) => res.json())
@@ -34,13 +43,21 @@ const Places = () => {
       .catch((error) => console.error("Erreur chargement trips :", error));
   }, []);
 
-  // Pour l’instant on ne filtre pas, on affiche tout
-  const filteredTrips = trips;
+  const totalPages = Math.ceil(trips.length / tripsPerPage);
+  const indexOfLastTrip = currentPage * tripsPerPage;
+  const indexOfFirstTrip = indexOfLastTrip - tripsPerPage;
+  const currentTrips = trips.slice(indexOfFirstTrip, indexOfLastTrip);
+
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      router.push(`?page=${page}`);
+    }
+  };
 
   return (
     <div className="min-h-screen px-4">
-      <div className=" mx-auto px-12">
-        <div className="mb-8 mt-36">
+      <div className="mx-auto px-12">
+        <div className="mb-8 mt-24">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
             Découvrez nos destinations
           </h1>
@@ -51,7 +68,7 @@ const Places = () => {
 
         {/* Cartes des voyages */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredTrips.map((trip) => (
+          {currentTrips.map((trip) => (
             <Card
               key={trip.id}
               className="relative overflow-hidden cursor-pointer group h-100 rounded-2xl"
@@ -125,8 +142,48 @@ const Places = () => {
           ))}
         </div>
 
+        {/* Pagination */}
+        {trips.length > tripsPerPage && (
+          <div className="flex justify-center items-center gap-4 mt-12 mb-14">
+            <Button
+              variant="outline"
+              onClick={() => handlePageChange(currentPage - 1)}
+              className="disabled:opacity-50 disabled:cursor-not-allowed bg-[#f36f0f] text-white hover:bg-[#f36f0f]/90 font-semibold rounded-full"
+              disabled={currentPage === 1}
+            >
+              Précédent
+            </Button>
+            {[...Array(totalPages)].map((_, index) => {
+              const page = index + 1;
+              const isActive = currentPage === page;
+
+              return (
+                <Button
+                  key={page}
+                  onClick={() => handlePageChange(page)}
+                  className={`font-semibold rounded-full ${
+                    isActive
+                      ? "bg-[#f36f0f] text-white"
+                      : "bg-white text-[#f36f0f] border border-[#f36f0f]"
+                  }`}
+                >
+                  {page}
+                </Button>
+              );
+            })}
+            <Button
+              variant="outline"
+              onClick={() => handlePageChange(currentPage + 1)}
+              className="disabled:opacity-50 disabled:cursor-not-allowed bg-[#f36f0f] text-white hover:bg-[#f36f0f]/90 font-semibold rounded-full"
+              disabled={currentPage === totalPages}
+            >
+              Suivant
+            </Button>
+          </div>
+        )}
+
         {/* Aucun résultat */}
-        {filteredTrips.length === 0 && (
+        {trips.length === 0 && (
           <div className="text-center py-12">
             <div className="text-gray-400 mb-4">
               <Search className="w-16 h-16 mx-auto" />
