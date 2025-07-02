@@ -355,16 +355,20 @@ export default function TripPage({
                 >
                   <div className="flex items-center space-x-2 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 border border-white/20">
                     <Star className="h-4 w-4 text-yellow-400 fill-yellow-400 flex-shrink-0" />
-                    <span className="font-semibold">{trip.note}/5</span>
+                    <span className="font-semibold text-white">
+                      {trip.note}/5
+                    </span>
                   </div>
                   <div className="flex items-center space-x-2 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 border border-white/20">
                     <Clock className="h-4 w-4 text-blue-400 flex-shrink-0" />
-                    <span className="font-semibold">{trip.durée} jours</span>
+                    <span className="font-semibold text-white">
+                      {trip.durée} jours
+                    </span>
                   </div>
                   <div className="flex items-center space-x-2 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 border border-white/20">
                     <Users className="h-4 w-4 text-green-400 flex-shrink-0" />
-                    <span className="font-semibold">
-                      {trip.passagers} pers.
+                    <span className="font-semibold text-white">
+                      {trip.passagers} places
                     </span>
                   </div>
                 </motion.div>
@@ -408,7 +412,7 @@ export default function TripPage({
                             <span className="text-sm">Groupe</span>
                           </div>
                           <p className="font-semibold text-lg">
-                            {trip.passagers} pers.
+                            {trip.passagers} places
                           </p>
                         </div>
                       </div>

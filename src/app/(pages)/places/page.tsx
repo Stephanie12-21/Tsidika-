@@ -5,8 +5,27 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Search, MapPin, Clock, Star } from "lucide-react";
+import {
+  Search,
+  MapPin,
+  Clock,
+  Star,
+  Users,
+  Calendar,
+  Euro,
+} from "lucide-react";
 import Image from "next/image";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 interface Trip {
   id: number;
@@ -32,6 +51,12 @@ const Places = () => {
   const pageFromUrl = parseInt(searchParams.get("page") || "1", 10);
   const [currentPage, setCurrentPage] = useState(pageFromUrl);
 
+  // États pour filtres
+  const [filterDestination, setFilterDestination] = useState("");
+  const [filterPassagers, setFilterPassagers] = useState<number | "">("");
+  const [filterDuree, setFilterDuree] = useState<number | "">("");
+  const [filterPrixMax, setFilterPrixMax] = useState<number | "">("");
+
   useEffect(() => {
     setCurrentPage(pageFromUrl);
   }, [pageFromUrl]);
@@ -43,27 +68,209 @@ const Places = () => {
       .catch((error) => console.error("Erreur chargement trips :", error));
   }, []);
 
-  const totalPages = Math.ceil(trips.length / tripsPerPage);
+  // Filtrage des trips selon les critères (localisation OU titre)
+  const filteredTrips = trips.filter((trip) => {
+    const destinationMatch =
+      trip.localisation
+        .toLowerCase()
+        .includes(filterDestination.toLowerCase()) ||
+      trip.titre.toLowerCase().includes(filterDestination.toLowerCase());
+
+    const passagersMatch =
+      filterPassagers === "" || trip.passagers >= Number(filterPassagers);
+
+    const dureeMatch = filterDuree === "" || trip.durée >= Number(filterDuree);
+
+    const prixMatch =
+      filterPrixMax === "" || trip.prix <= Number(filterPrixMax);
+
+    return destinationMatch && passagersMatch && dureeMatch && prixMatch;
+  });
+
+  const totalPages = Math.ceil(filteredTrips.length / tripsPerPage);
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(1);
+      router.push(`?page=1`);
+    }
+  }, [filteredTrips, currentPage, totalPages, router]);
+
   const indexOfLastTrip = currentPage * tripsPerPage;
   const indexOfFirstTrip = indexOfLastTrip - tripsPerPage;
-  const currentTrips = trips.slice(indexOfFirstTrip, indexOfLastTrip);
+  const currentTrips = filteredTrips.slice(indexOfFirstTrip, indexOfLastTrip);
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       router.push(`?page=${page}`);
+      setCurrentPage(page);
     }
+  };
+
+  // Dialog state (controlled)
+  const [open, setOpen] = useState(false);
+
+  // Handler appliquer filtres : ferme le dialog (le filtre est déjà appliqué au fur et à mesure)
+  const handleApplyFilters = () => {
+    setOpen(false);
+    setCurrentPage(1);
+    router.push(`?page=1`);
+  };
+
+  // Reset filtres
+  const handleResetFilters = () => {
+    setFilterDestination("");
+    setFilterPassagers("");
+    setFilterDuree("");
+    setFilterPrixMax("");
   };
 
   return (
     <div className="min-h-screen px-4">
       <div className="mx-auto px-12">
-        <div className="mb-8 mt-24">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-            Découvrez nos destinations
-          </h1>
-          <p className="text-gray-600 text-lg">
-            Trouvez votre prochaine aventure parmi nos voyages exceptionnels
-          </p>
+        {/* Ligne titre + bouton filtre */}
+        <div className="mb-8 mt-36 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h1 className="text-3xl md:text-4xl font-bold text-[#1c1817] mb-2">
+              Découvrez nos destinations
+            </h1>
+            <p className="text-gray-600 text-lg">
+              Trouvez votre prochaine aventure parmi nos voyages exceptionnels
+            </p>
+          </div>
+
+          {/* Bouton filtre avec icône */}
+
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+              <Button
+                size="lg"
+                className="bg-[#f36f0f] hover:bg-[#f36f0f]/90 text-white font-semibold rounded-xl px-8 py-4 shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+              >
+                Filtrer les voyages
+              </Button>
+            </DialogTrigger>
+
+            <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden">
+              <DialogHeader className="flex flex-col items-center justify-center">
+                <DialogTitle className="text-xl font-bold flex items-center justify-center gap-2 pt-5">
+                  Filtrer les voyages
+                </DialogTitle>
+                <DialogDescription className="text-gray-600 text-sm text-center">
+                  Affinez votre recherche avec les critères ci-dessous
+                </DialogDescription>
+              </DialogHeader>
+
+              <div className="p-6 space-y-6">
+                <div className="grid gap-4">
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor="destination"
+                      className="text-sm font-medium flex items-center gap-2"
+                    >
+                      <MapPin className="w-4 h-4 text-[#f36f0f]" />
+                      Destination
+                    </Label>
+                    <Input
+                      id="destination"
+                      type="text"
+                      placeholder="Où souhaitez-vous aller ?"
+                      value={filterDestination}
+                      onChange={(e) => setFilterDestination(e.target.value)}
+                      className="border-gray-200 focus:border-[#f36f0f] focus:ring-[#f36f0f] rounded-lg"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="passagers"
+                        className="text-sm font-medium flex items-center gap-2"
+                      >
+                        <Users className="w-4 h-4 text-[#f36f0f]" />
+                        Passagers
+                      </Label>
+                      <Input
+                        id="passagers"
+                        type="number"
+                        min={1}
+                        placeholder="Nombre"
+                        value={filterPassagers === "" ? "" : filterPassagers}
+                        onChange={(e) =>
+                          setFilterPassagers(
+                            e.target.value === "" ? "" : Number(e.target.value)
+                          )
+                        }
+                        className="border-gray-200 focus:border-[#f36f0f] focus:ring-[#f36f0f] rounded-lg"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="duree"
+                        className="text-sm font-medium flex items-center gap-2"
+                      >
+                        <Calendar className="w-4 h-4 text-[#f36f0f]" />
+                        Durée
+                      </Label>
+                      <Input
+                        id="duree"
+                        type="number"
+                        min={1}
+                        placeholder="Jours"
+                        value={filterDuree === "" ? "" : filterDuree}
+                        onChange={(e) =>
+                          setFilterDuree(
+                            e.target.value === "" ? "" : Number(e.target.value)
+                          )
+                        }
+                        className="border-gray-200 focus:border-[#f36f0f] focus:ring-[#f36f0f] rounded-lg"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor="prix"
+                      className="text-sm font-medium flex items-center gap-2"
+                    >
+                      <Euro className="w-4 h-4 text-[#f36f0f]" />
+                      Budget
+                    </Label>
+                    <Input
+                      id="prix"
+                      type="number"
+                      min={0}
+                      placeholder="Prix maximum en euros"
+                      value={filterPrixMax === "" ? "" : filterPrixMax}
+                      onChange={(e) =>
+                        setFilterPrixMax(
+                          e.target.value === "" ? "" : Number(e.target.value)
+                        )
+                      }
+                      className="border-gray-200 focus:border-[#f36f0f] focus:ring-[#f36f0f] rounded-lg"
+                    />
+                  </div>
+                </div>
+
+                <DialogFooter className="flex flex-col sm:flex-row gap-3 sm:justify-between">
+                  <Button
+                    variant="outline"
+                    onClick={handleResetFilters}
+                    className="border-[#f36f0f] text-[#f36f0f] hover:bg-[#f36f0f] hover:text-white transition-colors duration-200 bg-transparent"
+                  >
+                    Réinitialiser
+                  </Button>
+                  <Button
+                    onClick={handleApplyFilters}
+                    className="bg-[#f36f0f] hover:bg-[#f36f0f]/90 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
+                  >
+                    Appliquer les filtres
+                  </Button>
+                </DialogFooter>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
 
         {/* Cartes des voyages */}
@@ -143,7 +350,7 @@ const Places = () => {
         </div>
 
         {/* Pagination */}
-        {trips.length > tripsPerPage && (
+        {filteredTrips.length > tripsPerPage && (
           <div className="flex justify-center items-center gap-4 mt-12 mb-14">
             <Button
               variant="outline"
@@ -183,7 +390,7 @@ const Places = () => {
         )}
 
         {/* Aucun résultat */}
-        {trips.length === 0 && (
+        {filteredTrips.length === 0 && (
           <div className="text-center py-12">
             <div className="text-gray-400 mb-4">
               <Search className="w-16 h-16 mx-auto" />
