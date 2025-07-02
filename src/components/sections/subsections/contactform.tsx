@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import { z } from "zod";
 
 interface ContactFormProps {
   onSuccess: (title: string, message: string) => void;
@@ -16,6 +17,35 @@ interface ContactFormProps {
 
 const inputFocusClasses =
   "border-gray-200 focus:border-[#F36F0F] focus:ring-[#F36F0F] transition-all duration-300 bg-[#FFFFFF]";
+
+const contactSchema = z.object({
+  nom: z.string().min(2, "Le nom est requis."),
+  prenom: z.string().min(2, "Le prénom est requis."),
+  email: z
+    .string()
+    .email({ message: "Adresse email invalide." })
+    .refine(
+      (email) => {
+        const allowedDomains = [
+          "gmail.com",
+          "yahoo.com",
+          "outlook.com",
+          "hotmail.com",
+          "live.com",
+          "icloud.com",
+          "orange.fr",
+          "free.fr",
+          "protonmail.com",
+        ];
+        const domain = email.split("@")[1]?.toLowerCase();
+        return allowedDomains.includes(domain);
+      },
+      { message: "Domaine email non autorisé." }
+    ),
+  phone: z.string().min(5, "Numéro de téléphone requis."),
+  object: z.string().min(2, "Objet requis."),
+  message: z.string().min(5, "Message requis."),
+});
 
 export default function ContactForm({ onSuccess, onError }: ContactFormProps) {
   const [nom, setNom] = useState("");
@@ -39,7 +69,30 @@ export default function ContactForm({ onSuccess, onError }: ContactFormProps) {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const data = { nom, prenom, email, Phone: `+${phone}`, object, message };
+    const validation = contactSchema.safeParse({
+      nom,
+      prenom,
+      email,
+      phone,
+      object,
+      message,
+    });
+
+    if (!validation.success) {
+      const firstError = validation.error.issues[0];
+      onError("Erreur de validation", firstError.message);
+      setIsSubmitting(false);
+      return;
+    }
+
+    const data = {
+      nom,
+      prenom,
+      email,
+      Phone: `+${phone}`,
+      object,
+      message,
+    };
 
     try {
       const response = await fetch("/api/contact", {
@@ -79,7 +132,6 @@ export default function ContactForm({ onSuccess, onError }: ContactFormProps) {
                 onChange={(e) => setNom(e.target.value)}
                 placeholder="Votre nom ici..."
                 className={`h-12 ${inputFocusClasses}`}
-                required
               />
             </div>
             <div className="space-y-2">
@@ -90,7 +142,6 @@ export default function ContactForm({ onSuccess, onError }: ContactFormProps) {
                 onChange={(e) => setPrenom(e.target.value)}
                 placeholder="Votre prénom ici..."
                 className={`h-12 ${inputFocusClasses}`}
-                required
               />
             </div>
           </div>
@@ -104,7 +155,6 @@ export default function ContactForm({ onSuccess, onError }: ContactFormProps) {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Votre adresse email ici..."
               className={`h-12 ${inputFocusClasses}`}
-              required
             />
           </div>
 
@@ -128,7 +178,6 @@ export default function ContactForm({ onSuccess, onError }: ContactFormProps) {
               onChange={(e) => setObject(e.target.value)}
               placeholder="L'objet ici..."
               className={`h-12 ${inputFocusClasses}`}
-              required
             />
           </div>
 
@@ -140,7 +189,6 @@ export default function ContactForm({ onSuccess, onError }: ContactFormProps) {
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Votre message ici..."
               className={`min-h-[150px] resize-none ${inputFocusClasses}`}
-              required
             />
           </div>
 
@@ -149,12 +197,16 @@ export default function ContactForm({ onSuccess, onError }: ContactFormProps) {
               type="button"
               onClick={resetForm}
               variant="outline"
-              className="h-10 px-8"
+              className="h-10 px-8 border-[#F36F0F] text-[#F36F0F] hover:bg-[#F36F0F]/10 transition-colors duration-300"
               disabled={isSubmitting}
             >
               Annuler
             </Button>
-            <Button type="submit" className="h-10 px-8" disabled={isSubmitting}>
+            <Button
+              type="submit"
+              className="h-10 px-8 bg-[#F36F0F] text-white hover:bg-[#E55A00] transition-colors duration-300"
+              disabled={isSubmitting}
+            >
               {isSubmitting ? "Envoi en cours..." : "Envoyer le message"}
             </Button>
           </div>

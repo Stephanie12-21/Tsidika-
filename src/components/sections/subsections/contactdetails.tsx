@@ -90,7 +90,7 @@ export default function ContactDetails() {
                 href="https://stephanie-maminiaina.vercel.app/"
                 className="hover:underline"
               >
-                Portfolio
+                Portfolio de la développeuse
               </a>
             </div>
           </div>
