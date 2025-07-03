@@ -5,6 +5,7 @@
     "titre": "Tsingy de Bemaraha",
     "description": "Randonnée extrême dans un site classé UNESCO avec ponts suspendus et pics calcaires spectaculaires.",
     "prix": 580,
+    "paylink": "https://buy.stripe.com/test_cNidR9fxt1LbfJdh25g7e0l",
     "image": "/images/tsingy1.jpg",
     "images": [
       "/images/tsingy1.jpg",
@@ -180,6 +181,7 @@
     "titre": "Ascension du Pic Boby",
     "description": "Trekking en altitude dans le parc de l’Andringitra, avec bivouac et vue panoramique.",
     "prix": 450,
+    "paylink": "https://buy.stripe.com/test_cNi3cvbhd61r0Ojh25g7e0k",
     "image": "/images/andringitra1.jpg",
     "images": [
       "/images/andringitra2.jpg",
@@ -199,6 +201,7 @@
     "titre": "Descente de la Tsiribihina",
     "description": "Canoë traditionnel, faune et bivouac sauvage au fil de l’eau.",
     "prix": 490,
+    "paylink": "https://buy.stripe.com/test_4gMbJ10Cz0H7eF9cLPg7e0j",
     "image": "/images/tsiribihina.jpg",
     "images": [
       "/images/tsiribihina1.jpg",
@@ -211,12 +214,14 @@
     "passagers": 9,
     "localisation": "Menabe"
   },
+
   {
     "id": 5,
     "slug": "road-trip-fort-dauphin",
     "titre": "Road trip Fort-Dauphin",
-    "description": "Exploration du sud extrême entre plages désertes, baobabs et culture Antandroy.",
+    "description": "Exploration du sud extrême entre plages désertes et les magnifiques paysages.",
     "prix": 520,
+    "paylink": "https://buy.stripe.com/test_bJe7sLfxt75v0OjbHLg7e0i",
     "image": "/images/farady1.jpg",
     "images": [
       "/images/farady2.jpg",
@@ -229,12 +234,14 @@
     "passagers": 6,
     "localisation": "Anosy"
   },
+
   {
     "id": 6,
     "slug": "montagne-d-ambre",
     "titre": "Montagne d’Ambre",
     "description": "Découverte de chutes, lacs de cratère et biodiversité dans une forêt humide.",
     "prix": 310,
+    "paylink": "https://buy.stripe.com/test_28E3cv995fC1cx16nrg7e0h",
     "image": "/images/ambre1.jpg",
     "images": [
       "/images/ambre2.jpg",
@@ -246,12 +253,14 @@
     "note": 4.4,
     "localisation": "Diana"
   },
+
   {
     "id": 7,
     "slug": "parc-de-ranomafana",
     "titre": "Parc de Ranomafana",
     "description": "Explorez une forêt tropicale avec lémuriens, oiseaux rares et sources chaudes.",
     "prix": 360,
+    "paylink": "https://buy.stripe.com/test_fZu9AT99589z68D137g7e0g",
     "image": "/images/ranomafana.jpg",
     "images": [
       "/images/ranomafana1.jpg",
@@ -265,12 +274,14 @@
     "passagers": 6,
     "localisation": "Vatovavy"
   },
+
   {
     "id": 8,
     "slug": "reserve-d-ankarana",
     "titre": "Réserve d’Ankarana",
     "description": "Grottes, tsingy, rivières souterraines et animaux rares dans le nord de l’île.",
     "prix": 420,
+    "paylink": "https://buy.stripe.com/test_6oU8wP4SP3Tj68DfY1g7e0f",
     "image": "/images/ankarana1.jpg",
     "images": [
       "/images/ankarana2.jpg",
@@ -283,12 +294,14 @@
     "passagers": 6,
     "localisation": "Diana"
   },
+
   {
     "id": 9,
     "slug": "parc-de-masoala",
     "titre": "Parc de Masoala",
     "description": "Expédition dans la plus grande forêt primaire de Madagascar, combinée à la mer.",
     "prix": 620,
+    "paylink": "https://buy.stripe.com/test_9B628r70X61rbsXcLPg7e0e",
     "image": "/images/masoala1.jpg",
     "images": [
       "/images/masoala2.jpg",
@@ -301,12 +314,14 @@
     "passagers": 6,
     "localisation": "Analanjirofo"
   },
+
   {
     "id": 10,
     "slug": "reserve-de-lokobe",
     "titre": "Réserve de Lokobe",
     "description": "Mini jungle à Nosy Be accessible en pirogue, idéale pour voir caméléons et lémuriens.",
     "prix": 290,
+    "paylink": "https://buy.stripe.com/test_00w3cv8512PffJd9zDg7e0d",
     "image": "/images/lokobe1.jpg",
     "images": [
       "/images/lokobe2.jpg",
@@ -319,12 +334,14 @@
     "passagers": 6,
     "localisation": "Nosy Be"
   },
+
   {
     "id": 11,
     "slug": "baleines-a-sainte-marie",
     "titre": "Baleines à Sainte-Marie",
     "description": "Observation des baleines à bosse (juillet-octobre) dans un cadre idyllique.",
     "prix": 540,
+    "paylink": "https://buy.stripe.com/test_cNieVd70XblLgNhcLPg7e0c",
     "image": "/images/saintemarie1.jpg",
     "images": [
       "/images/saintemarie2.jpg",
@@ -337,12 +354,14 @@
     "passagers": 16,
     "localisation": "Sainte-Marie"
   },
+
   {
     "id": 13,
     "slug": "nosy-be-et-archipel-des-mitsio",
     "titre": "Nosy Be & Archipel des Mitsio",
     "description": "Séjour balnéaire haut de gamme avec snorkeling, catamaran et détente.",
     "prix": 880,
+    "paylink": "https://buy.stripe.com/test_fZudR93OL75v2Wr3bfg7e0b",
     "image": "/images/nosybe1.jpg",
     "images": [
       "/images/nosybe2.jpg",
@@ -355,12 +374,14 @@
     "passagers": 6,
     "localisation": "Nosy Be"
   },
+
   {
     "id": 14,
     "slug": "nosy-iranja",
     "titre": "Nosy Iranja",
     "description": "Une île de carte postale avec banc de sable et eaux cristallines.",
     "prix": 660,
+    "paylink": "https://buy.stripe.com/test_bJeaEX3OLdtTeF98vzg7e0a",
     "image": "/images/iranja1.jpg",
     "images": [
       "/images/iranja2.jpg",
@@ -373,12 +394,14 @@
     "passagers": 7,
     "localisation": "Nosy Iranja"
   },
+
   {
     "id": 15,
     "slug": "ifaty-et-mangily",
     "titre": "Ifaty & Mangily",
     "description": "Plages calmes, pêche locale et lagon préservé à explorer à pied ou en pirogue.",
     "prix": 410,
+    "paylink": "https://buy.stripe.com/test_fZu4gz2KHgG5dB59zDg7e09",
     "image": "/images/ifaty1.jpg",
     "images": [
       "/images/ifaty2.jpg",
@@ -391,12 +414,14 @@
     "passagers": 8,
     "localisation": "Atsimo-Andrefana"
   },
+
   {
     "id": 16,
     "slug": "anakao",
     "titre": "Anakao",
     "description": "Spot de surf, plages sauvages et villages de pêcheurs authentiques.",
     "prix": 460,
+    "paylink": "https://buy.stripe.com/test_cNi3cvetp89z0OjeTXg7e08",
     "image": "/images/anakao1.jpg",
     "images": [
       "/images/anakao2.jpg",
@@ -409,12 +434,14 @@
     "passagers": 13,
     "localisation": "Atsimo-Andrefana"
   },
+
   {
     "id": 17,
     "slug": "ile-aux-nattes",
     "titre": "Île aux Nattes",
     "description": "Petit coin de paradis au sud de Sainte-Marie, parfait pour un séjour romantique.",
     "prix": 510,
+    "paylink": "https://buy.stripe.com/test_9B6cN50CzblL54zfY1g7e07",
     "image": "/images/ile-natte1.jpg",
     "images": [
       "/images/ile-natte2.jpg",
@@ -427,12 +454,14 @@
     "passagers": 2,
     "localisation": "Sainte-Marie"
   },
+
   {
     "id": 18,
     "slug": "romance-au-coucher-de-soleil-a-morondava",
     "titre": "Romance au coucher de soleil à Morondava",
     "description": "Balade main dans la main à l’Allée des Baobabs, dîner romantique en bord de mer et nuit en lodge.",
     "prix": 480,
+    "paylink": "https://buy.stripe.com/test_6oU6oH3OL0H7fJd3bfg7e06",
     "image": "/images/morondava1.jpg",
     "images": [
       "/images/morondava2.jpg",
@@ -445,12 +474,14 @@
     "note": 4.8,
     "localisation": "Menabe"
   },
+
   {
     "id": 19,
     "slug": "sejour-exclusif-a-tsarabanjina",
     "titre": "Séjour exclusif à Tsarabanjina",
     "description": "Île privée aux eaux turquoise, parfaite pour une lune de miel ou une escapade en amoureux.",
     "prix": 920,
+    "paylink": "https://buy.stripe.com/test_9B69ATfxt3Tj0Ojh25g7e05",
     "passagers": 6,
     "image": "/images/tsarabanjina1.jpg",
     "images": [

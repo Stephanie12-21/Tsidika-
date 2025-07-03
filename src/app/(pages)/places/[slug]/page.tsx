@@ -32,6 +32,7 @@ interface Trip {
   prix: number;
   durée: number;
   note: number;
+  paylink: string; // Lien de paiement optionnel
   passagers: number;
   localisation: string;
   activités?: {
@@ -282,7 +283,6 @@ export default function TripPage({
 
   return (
     <div className="relative min-h-screen overflow-hidden ">
-      {/* Background Image Slide */}
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}
@@ -303,13 +303,10 @@ export default function TripPage({
         </motion.div>
       </AnimatePresence>
 
-      {/* Content Container */}
       <div className="relative z-10 min-h-screen flex flex-col  mb-2">
-        {/* Main Content */}
         <div className="flex-1 flex items-center p-4">
           <div className="w-full max-w-7xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-              {/* Left: Trip Info */}
               <motion.div
                 key={currentSlide}
                 initial={{ opacity: 0, x: -60 }}
@@ -360,7 +357,6 @@ export default function TripPage({
                   {slides[currentSlide].description}
                 </motion.p>
 
-                {/* Quick Stats */}
                 <motion.div
                   className="flex flex-wrap gap-4"
                   initial={{ opacity: 0, y: 20 }}
@@ -388,7 +384,6 @@ export default function TripPage({
                 </motion.div>
               </motion.div>
 
-              {/* Right: Enhanced Card - Desktop & Tablet */}
               <motion.div
                 initial={{ opacity: 0, x: 60 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -454,7 +449,6 @@ export default function TripPage({
           </div>
         </div>
 
-        {/* Navigation Container - Moved Lower */}
         <div className="pb-12">
           {/* Enhanced Navigation */}
           {slides.length > 1 && (
@@ -527,7 +521,6 @@ export default function TripPage({
         </div>
       </div>
 
-      {/* Details Panel */}
       <AnimatePresence>
         {showDetails && (
           <motion.div
@@ -704,7 +697,6 @@ export default function TripPage({
         )}
       </AnimatePresence>
 
-      {/* Booking Dialog */}
       <AnimatePresence>
         {showBooking && (
           <motion.div
@@ -736,7 +728,6 @@ export default function TripPage({
         )}
       </AnimatePresence>
 
-      {/* ✅ Affichage des modales */}
       <SuccessModal
         open={showSuccessModal}
         onClose={() => setShowSuccessModal(false)}
