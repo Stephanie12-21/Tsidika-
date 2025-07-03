@@ -81,46 +81,62 @@ export default function BookingModal({
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
   const handlePhoneChange = (value: string) => {
     setFormData((prev) => ({ ...prev, phone: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Afficher une modale info avant validation, par exemple
+    // On affiche la modale info dès que la soumission commence
     setShowInfoModal(true);
-    setModalTitle("Validation en cours");
-    setModalMessage("Nous vérifions vos informations...");
+    setModalTitle("Traitement en cours");
+    setModalMessage("Votre réservation est en cours de traitement...");
 
-    setTimeout(() => {
-      setShowInfoModal(false);
+    const result = bookingSchema.safeParse(formData);
+    if (!result.success) {
+      setShowInfoModal(false); // on ferme la modale info si erreur
+      const fieldErrors: { [key: string]: string } = {};
+      result.error.errors.forEach((err) => {
+        const field = err.path[0] as string;
+        fieldErrors[field] = err.message;
+      });
+      setErrors(fieldErrors);
+      setShowErrorModal(true);
+      setModalTitle("Erreur de formulaire");
+      setModalMessage("Merci de corriger les erreurs avant de soumettre.");
+      return;
+    }
 
-      const result = bookingSchema.safeParse(formData);
+    const payload = { ...result.data, slug: trip.slug };
 
-      if (!result.success) {
-        const fieldErrors: { [key: string]: string } = {};
-        result.error.errors.forEach((err) => {
-          const field = err.path[0] as string;
-          fieldErrors[field] = err.message;
-        });
-        setErrors(fieldErrors);
+    try {
+      const res = await fetch("/api/trips", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-        setShowErrorModal(true);
-        setModalTitle("Erreur de formulaire");
-        setModalMessage("Merci de corriger les erreurs avant de soumettre.");
-        return;
-      }
+      setShowInfoModal(false); // on ferme la modale info dès que la réponse arrive
 
-      // Si validation OK
-      console.log("Réservation confirmée :", result.data, trip.slug);
+      if (!res.ok) throw new Error("Erreur API");
+
       setErrors({});
       setShowBooking(false);
       setShowSuccessModal(true);
       setModalTitle("Réservation confirmée");
-      setModalMessage("Votre demande de réservation a été enregistrée.");
-    }, 1000); // délai fictif de 1 seconde pour la modale info
+      setModalMessage(
+        "Un email de confirmation vous a été envoyé avec la fiche PDF du voyage."
+      );
+    } catch (error) {
+      setShowInfoModal(false); // aussi fermer si erreur
+      console.error(error);
+      setShowErrorModal(true);
+      setModalTitle("Erreur serveur");
+      setModalMessage(
+        "Une erreur est survenue lors de l'envoi de l'email. Veuillez réessayer plus tard."
+      );
+    }
   };
 
   return (
