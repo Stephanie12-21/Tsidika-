@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect, use } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -18,6 +17,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import BookingModal from "@/components/sections/subsections/Bookingmodal";
+import SuccessModal from "@/app/(modal)/SuccessModal";
+import ErrorModal from "@/app/(modal)/ErrorModal";
+import InfoModal from "@/app/(modal)/InfoModal";
 
 interface Trip {
   id: number;
@@ -85,9 +88,16 @@ export default function TripPage({
   const [slides, setSlides] = useState<Slide[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showDetails, setShowDetails] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [showInfoModal, setShowInfoModal] = useState(false);
+
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalMessage, setModalMessage] = useState("");
   const [loadingMessage, setLoadingMessage] = useState(
     "Chargement de votre aventure..."
   );
+  const [showBooking, setShowBooking] = useState(false);
 
   useEffect(() => {
     const fetchTrip = async () => {
@@ -266,6 +276,10 @@ export default function TripPage({
     );
   }
 
+  const handleBooking = () => {
+    setShowBooking(true);
+  };
+
   return (
     <div className="relative min-h-screen overflow-hidden ">
       {/* Background Image Slide */}
@@ -418,7 +432,10 @@ export default function TripPage({
                       </div>
 
                       <div className="space-y-3">
-                        <Button className="w-full bg-gradient-to-r from-[#f36f0f] to-[#ff8533] hover:from-[#e55a00] hover:to-[#e6661a] text-white font-bold py-4 text-lg shadow-lg shadow-[#f36f0f]/30 transition-all duration-300 hover:shadow-xl hover:shadow-[#f36f0f]/40 group">
+                        <Button
+                          onClick={() => handleBooking()}
+                          className="w-full bg-gradient-to-r from-[#f36f0f] to-[#ff8533] hover:from-[#e55a00] hover:to-[#e6661a] text-white font-bold py-4 text-lg shadow-lg shadow-[#f36f0f]/30 transition-all duration-300 hover:shadow-xl hover:shadow-[#f36f0f]/40 group"
+                        >
                           Réserver maintenant
                         </Button>
                         <Button
@@ -686,6 +703,58 @@ export default function TripPage({
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Booking Dialog */}
+      <AnimatePresence>
+        {showBooking && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <motion.div
+              className="bg-white rounded-lg w-full max-w-md p-6 shadow-lg"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <BookingModal
+                trip={trip}
+                showBooking={showBooking}
+                setShowBooking={setShowBooking}
+                setShowSuccessModal={setShowSuccessModal}
+                setShowErrorModal={setShowErrorModal}
+                setShowInfoModal={setShowInfoModal}
+                setModalTitle={setModalTitle}
+                setModalMessage={setModalMessage}
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ✅ Affichage des modales */}
+      <SuccessModal
+        open={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        title={modalTitle}
+        message={modalMessage}
+      />
+      <ErrorModal
+        open={showErrorModal}
+        onClose={() => setShowErrorModal(false)}
+        title={modalTitle}
+        message={modalMessage}
+      />
+      <InfoModal
+        open={showInfoModal}
+        onClose={() => setShowInfoModal(false)}
+        title={modalTitle}
+        message={modalMessage}
+      />
     </div>
   );
 }

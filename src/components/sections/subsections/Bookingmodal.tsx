@@ -1,0 +1,234 @@
+"use client";
+
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { X } from "lucide-react";
+import { z } from "zod";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+
+type Trip = {
+  slug: string;
+  titre: string;
+  prix: number;
+};
+
+type BookingModalProps = {
+  trip: Trip;
+  showBooking: boolean;
+  setShowBooking: (value: boolean) => void;
+  setShowSuccessModal: (value: boolean) => void;
+  setShowErrorModal: (value: boolean) => void;
+  setShowInfoModal: (value: boolean) => void;
+  setModalTitle: (value: string) => void;
+  setModalMessage: (value: string) => void;
+};
+
+const emailSchema = z
+  .string()
+  .email({ message: "Adresse email invalide." })
+  .refine(
+    (email) => {
+      const allowedDomains = [
+        "gmail.com",
+        "yahoo.com",
+        "outlook.com",
+        "hotmail.com",
+        "live.com",
+        "icloud.com",
+        "orange.fr",
+        "free.fr",
+        "protonmail.com",
+      ];
+      const domain = email.split("@")[1]?.toLowerCase();
+      return allowedDomains.includes(domain);
+    },
+    {
+      message: "Domaine email non autorisé.",
+    }
+  );
+
+const bookingSchema = z.object({
+  nom: z.string().min(1, "Le nom est requis"),
+  email: emailSchema,
+  personnes: z.coerce.number().min(1, "Au moins 1 personne"),
+  phone: z.string().min(5, "Le numéro de téléphone est requis"),
+});
+
+export default function BookingModal({
+  trip,
+  showBooking,
+  setShowBooking,
+  setShowSuccessModal,
+  setShowErrorModal,
+  setShowInfoModal,
+  setModalTitle,
+  setModalMessage,
+}: BookingModalProps) {
+  const [formData, setFormData] = useState({
+    nom: "",
+    email: "",
+    personnes: 1,
+    phone: "",
+  });
+
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handlePhoneChange = (value: string) => {
+    setFormData((prev) => ({ ...prev, phone: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Afficher une modale info avant validation, par exemple
+    setShowInfoModal(true);
+    setModalTitle("Validation en cours");
+    setModalMessage("Nous vérifions vos informations...");
+
+    setTimeout(() => {
+      setShowInfoModal(false);
+
+      const result = bookingSchema.safeParse(formData);
+
+      if (!result.success) {
+        const fieldErrors: { [key: string]: string } = {};
+        result.error.errors.forEach((err) => {
+          const field = err.path[0] as string;
+          fieldErrors[field] = err.message;
+        });
+        setErrors(fieldErrors);
+
+        setShowErrorModal(true);
+        setModalTitle("Erreur de formulaire");
+        setModalMessage("Merci de corriger les erreurs avant de soumettre.");
+        return;
+      }
+
+      // Si validation OK
+      console.log("Réservation confirmée :", result.data, trip.slug);
+      setErrors({});
+      setShowBooking(false);
+      setShowSuccessModal(true);
+      setModalTitle("Réservation confirmée");
+      setModalMessage("Votre demande de réservation a été enregistrée.");
+    }, 1000); // délai fictif de 1 seconde pour la modale info
+  };
+
+  return (
+    <AnimatePresence>
+      {showBooking && (
+        <motion.div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <motion.div
+            className="bg-white rounded-lg w-full max-w-md p-6 shadow-lg"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-bold text-[#f36f0f]">
+                Réserver votre voyage
+              </h2>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setShowBooking(false)}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <X className="h-6 w-6" />
+              </Button>
+            </div>
+
+            <p className="text-gray-700 mb-4">
+              Vous êtes sur le point de réserver le voyage{" "}
+              <strong>{trip.titre}</strong> pour {trip.prix}€ par personne.
+            </p>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-3">
+                <Label htmlFor="nom">Nom</Label>
+                <Input
+                  id="nom"
+                  name="nom"
+                  value={formData.nom}
+                  onChange={handleChange}
+                />
+                {errors.nom && (
+                  <p className="text-sm text-red-500 mt-1">{errors.nom}</p>
+                )}
+              </div>
+
+              <div className="space-y-3">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+                {errors.email && (
+                  <p className="text-sm text-red-500 mt-1">{errors.email}</p>
+                )}
+              </div>
+
+              <div className="space-y-3">
+                <Label htmlFor="phone">Téléphone</Label>
+                <PhoneInput
+                  country="mg"
+                  value={formData.phone}
+                  onChange={handlePhoneChange}
+                  inputClass="w-full bg-[#edf2f7] text-base"
+                  inputStyle={{ width: "100%", height: 40 }}
+                  placeholder="Entrez votre numéro"
+                />
+                {errors.phone && (
+                  <p className="text-sm text-red-500 mt-1">{errors.phone}</p>
+                )}
+              </div>
+
+              <div className="space-y-3">
+                <Label htmlFor="personnes">Nombre de personnes</Label>
+                <Input
+                  id="personnes"
+                  name="personnes"
+                  type="number"
+                  min={1}
+                  value={formData.personnes}
+                  onChange={handleChange}
+                />
+                {errors.personnes && (
+                  <p className="text-sm text-red-500 mt-1">
+                    {errors.personnes}
+                  </p>
+                )}
+              </div>
+
+              <Button
+                type="submit"
+                className="w-full bg-gradient-to-r from-[#f36f0f] to-[#ff8533] text-white font-bold py-3"
+              >
+                Confirmer la réservation
+              </Button>
+            </form>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
