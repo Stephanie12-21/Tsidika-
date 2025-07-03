@@ -15,8 +15,6 @@ import {
   Euro,
 } from "lucide-react";
 import Image from "next/image";
-
-// Import Shadcn Dialog components
 import {
   Dialog,
   DialogContent,
@@ -45,15 +43,14 @@ interface Trip {
 const Places = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+
   const [trips, setTrips] = useState<Trip[]>([]);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-
   const tripsPerPage = 6;
 
   const pageFromUrl = parseInt(searchParams.get("page") || "1", 10);
   const [currentPage, setCurrentPage] = useState(pageFromUrl);
 
-  // États pour filtres
   const [filterDestination, setFilterDestination] = useState("");
   const [filterPassagers, setFilterPassagers] = useState<number | "">("");
   const [filterDuree, setFilterDuree] = useState<number | "">("");
@@ -70,19 +67,15 @@ const Places = () => {
       .catch((error) => console.error("Erreur chargement trips :", error));
   }, []);
 
-  // Filtrage des trips selon les critères (localisation OU titre)
   const filteredTrips = trips.filter((trip) => {
     const destinationMatch =
       trip.localisation
         .toLowerCase()
         .includes(filterDestination.toLowerCase()) ||
       trip.titre.toLowerCase().includes(filterDestination.toLowerCase());
-
     const passagersMatch =
       filterPassagers === "" || trip.passagers >= Number(filterPassagers);
-
     const dureeMatch = filterDuree === "" || trip.durée >= Number(filterDuree);
-
     const prixMatch =
       filterPrixMax === "" || trip.prix <= Number(filterPrixMax);
 
@@ -109,17 +102,14 @@ const Places = () => {
     }
   };
 
-  // Dialog state (controlled)
   const [open, setOpen] = useState(false);
 
-  // Handler appliquer filtres : ferme le dialog (le filtre est déjà appliqué au fur et à mesure)
   const handleApplyFilters = () => {
     setOpen(false);
     setCurrentPage(1);
     router.push(`?page=1`);
   };
 
-  // Reset filtres
   const handleResetFilters = () => {
     setFilterDestination("");
     setFilterPassagers("");
@@ -129,9 +119,9 @@ const Places = () => {
 
   return (
     <div className="min-h-screen px-4">
-      <div className="mx-auto px-12">
-        {/* Ligne titre + bouton filtre */}
-        <div className="mb-8 mt-36 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
+        {/* Titre + filtre */}
+        <div className="mb-8 mt-36 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
               Découvrez nos destinations
@@ -141,7 +131,6 @@ const Places = () => {
             </p>
           </div>
 
-          {/* Bouton filtre avec icône */}
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button
@@ -247,7 +236,7 @@ const Places = () => {
                     Réinitialiser
                   </Button>
                   <Button
-                    className="bg-[#f36f0f] text-white hover:bg-[#f36f0f]/90 font-semibold "
+                    className="bg-[#f36f0f] text-white hover:bg-[#f36f0f]/90 font-semibold"
                     onClick={handleApplyFilters}
                   >
                     Appliquer les filtres
@@ -258,8 +247,8 @@ const Places = () => {
           </Dialog>
         </div>
 
-        {/* Cartes des voyages */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Cartes voyages */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {currentTrips.map((trip) => (
             <Card
               key={trip.id}
@@ -336,11 +325,10 @@ const Places = () => {
 
         {/* Pagination */}
         {filteredTrips.length > tripsPerPage && (
-          <div className="flex justify-center items-center gap-4 mt-12 mb-14">
+          <div className="flex flex-wrap justify-center items-center gap-4 mt-12 mb-14">
             <Button
-              variant="outline"
               onClick={() => handlePageChange(currentPage - 1)}
-              className="disabled:opacity-50 disabled:cursor-not-allowed bg-[#f36f0f] text-white hover:bg-[#f36f0f]/90 font-semibold rounded-full"
+              className="bg-[#f36f0f] text-white rounded-full px-4 disabled:opacity-50"
               disabled={currentPage === 1}
             >
               Précédent
@@ -348,15 +336,14 @@ const Places = () => {
             {[...Array(totalPages)].map((_, index) => {
               const page = index + 1;
               const isActive = currentPage === page;
-
               return (
                 <Button
                   key={page}
                   onClick={() => handlePageChange(page)}
-                  className={`font-semibold rounded-full ${
+                  className={`rounded-full px-4 font-semibold ${
                     isActive
                       ? "bg-[#f36f0f] text-white"
-                      : "bg-white text-[#f36f0f] border border-[#f36f0f]"
+                      : "bg-white border border-[#f36f0f] text-[#f36f0f]"
                   }`}
                 >
                   {page}
@@ -364,9 +351,8 @@ const Places = () => {
               );
             })}
             <Button
-              variant="outline"
               onClick={() => handlePageChange(currentPage + 1)}
-              className="disabled:opacity-50 disabled:cursor-not-allowed bg-[#f36f0f] text-white hover:bg-[#f36f0f]/90 font-semibold rounded-full"
+              className="bg-[#f36f0f] text-white rounded-full px-4 disabled:opacity-50"
               disabled={currentPage === totalPages}
             >
               Suivant
@@ -377,9 +363,7 @@ const Places = () => {
         {/* Aucun résultat */}
         {filteredTrips.length === 0 && (
           <div className="text-center py-12">
-            <div className="text-gray-400 mb-4">
-              <Search className="w-16 h-16 mx-auto" />
-            </div>
+            <Search className="w-16 h-16 mx-auto text-gray-400 mb-4" />
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
               Aucun voyage trouvé
             </h3>

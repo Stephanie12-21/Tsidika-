@@ -282,7 +282,7 @@ export default function TripPage({
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden ">
+    <div className="relative min-h-screen overflow-y-hidden ">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}
@@ -303,7 +303,7 @@ export default function TripPage({
         </motion.div>
       </AnimatePresence>
 
-      <div className="relative z-10 min-h-screen flex flex-col  mb-2">
+      <div className="relative z-10 min-h-screen flex flex-col ">
         <div className="flex-1 flex items-center p-4">
           <div className="w-full max-w-7xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">

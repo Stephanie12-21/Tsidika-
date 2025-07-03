@@ -76,7 +76,7 @@ const Blog = () => {
     fetchBlogData();
   }, []);
 
-  // Filtrage dynamique dès que blogData ou searchterm change
+  // Filtrage dynamique
   useEffect(() => {
     if (!blogData) return;
 
@@ -94,12 +94,10 @@ const Blog = () => {
       setFilteredPosts(filtered);
     }
 
-    // Reset page à 1 à chaque nouvelle recherche
     setCurrentPage(1);
   }, [searchterm, blogData]);
 
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
-
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
@@ -143,8 +141,9 @@ const Blog = () => {
 
   return (
     <div className="min-h-screen mt-24 py-16 px-4 sm:px-6 lg:px-8">
-      <div className="container mx-auto ">
+      <div className="container mx-auto">
         <section className="mb-12">
+          {/* Barre de titre + recherche */}
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
               Derniers articles
@@ -162,8 +161,8 @@ const Blog = () => {
             </div>
           </div>
 
-          {/* Articles Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Articles Grid responsive */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {currentPosts.length === 0 ? (
               <p className="text-center col-span-full text-gray-500">
                 Aucun article trouvé pour votre recherche.
@@ -212,9 +211,9 @@ const Blog = () => {
             )}
           </div>
 
-          {/* Pagination */}
+          {/* Pagination responsive */}
           {totalPages > 1 && (
-            <div className="flex justify-center items-center gap-4 mt-12 mb-14">
+            <div className="flex flex-wrap justify-center items-center gap-3 mt-12 mb-14">
               <Button
                 variant="outline"
                 onClick={() => handlePageChange(currentPage - 1)}

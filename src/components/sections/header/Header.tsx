@@ -1,36 +1,26 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Globe } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 
-interface NavItem {
-  label: { FR: string; EN: string };
-  href: string;
-}
-
-const navItems: NavItem[] = [
-  { label: { FR: "Accueil", EN: "Home" }, href: "/" },
-  { label: { FR: "Destinations", EN: "Places" }, href: "/places" },
-  { label: { FR: "Blog", EN: "Blog" }, href: "/blog" },
-  { label: { FR: "Contact", EN: "Contact" }, href: "/contact" },
+const navItems = [
+  { label: "Accueil", href: "/" },
+  { label: "Destinations", href: "/places" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function Header() {
-  const [currentLang, setCurrentLang] = useState<"FR" | "EN">("FR");
   const pathname = usePathname();
   const router = useRouter();
-
-  // L'état actif est déterminé automatiquement par le pathname actuel
   const activeNav = pathname || "/";
-
-  const toggleLanguage = () => {
-    setCurrentLang((prev) => (prev === "FR" ? "EN" : "FR"));
-  };
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleNavClick = (href: string) => {
+    setIsOpen(false); // fermer le menu mobile
     router.push(href);
   };
 
@@ -66,7 +56,7 @@ export function Header() {
             Tsidika
           </motion.div>
 
-          {/* Navigation */}
+          {/* Navigation Desktop */}
           <ul className="hidden md:flex items-center gap-8">
             {navItems.map(({ href, label }) => (
               <li key={href} className="relative group">
@@ -74,8 +64,7 @@ export function Header() {
                   onClick={() => handleNavClick(href)}
                   className="text-[#1C1817] transition-colors duration-300 font-medium relative cursor-pointer"
                 >
-                  {label[currentLang]}
-                  {/* underline animation on hover and active */}
+                  {label}
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{
@@ -89,30 +78,61 @@ export function Header() {
             ))}
           </ul>
 
-          {/* Actions */}
+          {/* Actions (mobile + desktop) */}
           <div className="flex items-center gap-4">
-            {/* Language Switcher simple toggle */}
+            {/* Réserver bouton visible partout */}
             <motion.button
-              onClick={toggleLanguage}
-              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-muted/50 hover:bg-muted transition-colors duration-300 text-sm font-medium"
+              className="hidden md:flex items-center gap-2 px-6 py-2.5 bg-[#e85e03] text-white rounded-lg font-medium shadow-lg hover:shadow-xl transition-shadow duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              aria-label="Toggle language"
             >
-              <Globe className="h-4 w-4" />
-              <span>{currentLang === "FR" ? "FR" : "EN"}</span>
+              Réserver
             </motion.button>
 
-            {/* Réserver Button */}
-            <motion.button
-              className="flex items-center gap-2 px-6 py-2.5 bg-[#e85e03] text-white rounded-lg font-medium shadow-lg hover:shadow-xl transition-shadow duration-300"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            {/* Hamburger menu (mobile) */}
+            <button
+              className="md:hidden text-[#1C1817]"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Menu"
             >
-              <span>{currentLang === "FR" ? "Réserver" : "Book Now"}</span>
-            </motion.button>
+              {isOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
           </div>
         </div>
+
+        {/* Menu mobile */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden px-6 pb-4"
+            >
+              <ul className="flex flex-col gap-4 mt-2">
+                {navItems.map(({ href, label }) => (
+                  <li key={href}>
+                    <button
+                      onClick={() => handleNavClick(href)}
+                      className="w-full text-left text-[#1C1817] font-medium py-2"
+                    >
+                      {label}
+                    </button>
+                  </li>
+                ))}
+                <motion.button
+                  onClick={() => router.push("/contact")}
+                  className="w-full mt-4 bg-[#e85e03] text-white rounded-lg py-2 font-medium shadow-md"
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  Réserver
+                </motion.button>
+              </ul>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.nav>
     </motion.header>
   );
