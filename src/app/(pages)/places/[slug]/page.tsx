@@ -776,7 +776,7 @@ export default function TripPage({
             transition={{ duration: 0.3 }}
           >
             <motion.div
-              className="bg-white rounded-lg w-full max-w-xl p-6 shadow-lg"
+              className="bg-white rounded-lg w-full max-w-md p-6 mt-20 shadow-lg"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}

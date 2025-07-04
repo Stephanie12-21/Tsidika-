@@ -144,18 +144,14 @@ export default function BookingModal({
     <AnimatePresence>
       {showBooking && (
         <motion.div
-          className="
-         fixed inset-0 z-50 flex items-start justify-center
-         pt-10 sm:pt-16 md:pt-20 lg:pt-24
-         bg-black/70
-       "
+          className="fixed inset-0 z-50 flex items-center justify-center pt-20 bg-black/70"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
         >
           <motion.div
-            className="bg-white rounded-lg w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl p-6 shadow-lg"
+            className="bg-white rounded-lg w-full max-w-xl p-6 shadow-lg"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
