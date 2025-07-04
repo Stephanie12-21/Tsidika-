@@ -14,6 +14,7 @@ type Trip = {
   slug: string;
   titre: string;
   prix: number;
+  passagers: number;
 };
 
 type BookingModalProps = {
@@ -143,14 +144,18 @@ export default function BookingModal({
     <AnimatePresence>
       {showBooking && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+          className="
+         fixed inset-0 z-50 flex items-start justify-center
+         pt-10 sm:pt-16 md:pt-20 lg:pt-24
+         bg-black/70
+       "
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
         >
           <motion.div
-            className="bg-white rounded-lg w-full max-w-md p-6 shadow-lg"
+            className="bg-white rounded-lg w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl p-6 shadow-lg"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
@@ -225,6 +230,7 @@ export default function BookingModal({
                   name="personnes"
                   type="number"
                   min={1}
+                  max={trip.passagers}
                   value={formData.personnes}
                   onChange={handleChange}
                 />
@@ -240,6 +246,16 @@ export default function BookingModal({
                 className="w-full bg-gradient-to-r from-[#f36f0f] to-[#ff8533] text-white font-bold py-3"
               >
                 Confirmer la réservation
+              </Button>
+              <Button
+                type="button"
+                onClick={() => {
+                  setShowBooking(false);
+                  setShowErrorModal(false); // ← important pour éviter que l’erreur reste affichée
+                }}
+                className="w-full bg-white border-[#f36f0f] text-[#f36f0f] font-bold py-3"
+              >
+                Annuler la réservation
               </Button>
             </form>
           </motion.div>

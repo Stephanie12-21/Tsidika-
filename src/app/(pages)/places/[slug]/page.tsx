@@ -8,10 +8,10 @@ import {
   Star,
   Users,
   Clock,
-  Calendar,
   X,
   Check,
-  XIcon,
+  CalendarIcon,
+  XCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,6 +21,7 @@ import BookingModal from "@/components/sections/subsections/Bookingmodal";
 import SuccessModal from "@/app/(modal)/SuccessModal";
 import ErrorModal from "@/app/(modal)/ErrorModal";
 import InfoModal from "@/app/(modal)/InfoModal";
+import { SlideControlsMobile } from "@/components/sections/subsections/slides";
 
 interface Trip {
   id: number;
@@ -303,16 +304,18 @@ export default function TripPage({
         </motion.div>
       </AnimatePresence>
 
-      <div className="relative z-10 min-h-screen flex flex-col ">
+      <div className="relative z-10 min-h-screen flex flex-col">
         <div className="flex-1 flex items-center p-4">
           <div className="w-full max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            {/* Layout responsive : colonne sur mobile, grille sur desktop */}
+            <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:items-center">
+              {/* Section texte - Premier sur mobile et desktop */}
               <motion.div
                 key={currentSlide}
                 initial={{ opacity: 0, x: -60 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="space-y-6"
+                className="space-y-6 order-1"
               >
                 <div className="space-y-4">
                   <motion.div
@@ -326,7 +329,6 @@ export default function TripPage({
                       {slides[currentSlide].location}
                     </span>
                   </motion.div>
-
                   <motion.h1
                     className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight bg-gradient-to-r from-white via-orange-100 to-orange-200 bg-clip-text text-transparent"
                     initial={{ opacity: 0, y: 30 }}
@@ -335,7 +337,6 @@ export default function TripPage({
                   >
                     {slides[currentSlide].title}
                   </motion.h1>
-
                   {slides[currentSlide].subtitle && (
                     <motion.h2
                       className="text-xl md:text-2xl font-semibold text-[#f36f0f] bg-gradient-to-r from-[#f36f0f] to-[#ff8533] bg-clip-text "
@@ -347,7 +348,6 @@ export default function TripPage({
                     </motion.h2>
                   )}
                 </div>
-
                 <motion.p
                   className="text-lg md:text-xl leading-relaxed text-gray-200 max-w-2xl"
                   initial={{ opacity: 0, y: 20 }}
@@ -356,7 +356,6 @@ export default function TripPage({
                 >
                   {slides[currentSlide].description}
                 </motion.p>
-
                 <motion.div
                   className="flex flex-wrap gap-4"
                   initial={{ opacity: 0, y: 20 }}
@@ -384,11 +383,90 @@ export default function TripPage({
                 </motion.div>
               </motion.div>
 
+              {/* Section navigation slides - Deuxième sur mobile, masquée sur desktop */}
+              {slides.length > 1 && (
+                <motion.div
+                  className="hidden sm:hidden justify-center order-2 py-6"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.8 }}
+                >
+                  <div className="flex items-center space-x-6 rounded-full p-4">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={prevSlide}
+                      className="h-12 w-12 rounded-full bg-white/10 text-white backdrop-blur-sm hover:bg-[#f36f0f]/80 border border-white/20 hover:border-[#f36f0f] transition-all duration-300 group"
+                    >
+                      <ChevronLeft className="h-6 w-6 group-hover:-translate-x-0.5 transition-transform" />
+                    </Button>
+                    <div className="flex space-x-3">
+                      {slides.map((slide, index) => (
+                        <motion.button
+                          key={slide.id}
+                          onClick={() => goToSlide(index)}
+                          className={`relative overflow-hidden rounded-xl transition-all duration-300 border-2 ${
+                            index === currentSlide
+                              ? "border-[#f36f0f] shadow-lg shadow-[#f36f0f]/50 scale-110"
+                              : "border-white/20 opacity-70 hover:opacity-100 hover:border-white/40"
+                          }`}
+                          whileHover={{
+                            scale: index === currentSlide ? 1.1 : 1.05,
+                          }}
+                          whileTap={{ scale: 0.95 }}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{
+                            opacity: 1,
+                            scale: index === currentSlide ? 1.1 : 1,
+                          }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <div
+                            className="h-16 w-24 bg-cover bg-center"
+                            style={{
+                              backgroundImage: `url(${slide.thumbnail})`,
+                            }}
+                          />
+                          {index === currentSlide && (
+                            <motion.div
+                              className="absolute inset-0 bg-gradient-to-t from-[#f36f0f]/30 to-transparent"
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              transition={{ duration: 0.3 }}
+                            />
+                          )}
+                        </motion.button>
+                      ))}
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={nextSlide}
+                      className="h-12 w-12 rounded-full bg-white/10 text-white backdrop-blur-sm hover:bg-[#f36f0f]/80 border border-white/20 hover:border-[#f36f0f] transition-all duration-300 group"
+                    >
+                      <ChevronRight className="h-6 w-6 group-hover:translate-x-0.5 transition-transform" />
+                    </Button>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Slide control mobile */}
+              <div className="block sm:hidden w-full order-2 py-6 ">
+                <SlideControlsMobile
+                  slides={slides}
+                  currentSlide={currentSlide}
+                  goToSlide={goToSlide}
+                  prevSlide={prevSlide}
+                  nextSlide={nextSlide}
+                />
+              </div>
+
+              {/* Card - Troisième sur mobile, deuxième sur desktop */}
               <motion.div
                 initial={{ opacity: 0, x: 60 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
-                className="hidden md:flex justify-center md:justify-end"
+                className="flex justify-center lg:justify-end order-3 lg:order-2"
               >
                 <Card className="bg-white/5 backdrop-blur-xl border border-white/10 text-white w-full max-w-md shadow-2xl shadow-black/50 overflow-hidden">
                   <CardContent className="p-0">
@@ -402,13 +480,12 @@ export default function TripPage({
                         </div>
                       </div>
                     </div>
-
                     {/* Card Content */}
                     <div className="p-6 space-y-6">
                       <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
                           <div className="flex items-center space-x-2 text-gray-300">
-                            <Calendar className="h-4 w-4 text-[#f36f0f]" />
+                            <CalendarIcon className="h-4 w-4 text-[#f36f0f]" />
                             <span className="text-sm">Durée</span>
                           </div>
                           <p className="font-semibold text-lg">
@@ -425,7 +502,6 @@ export default function TripPage({
                           </p>
                         </div>
                       </div>
-
                       <div className="space-y-3">
                         <Button
                           onClick={() => handleBooking()}
@@ -449,16 +525,16 @@ export default function TripPage({
           </div>
         </div>
 
+        {/* Navigation desktop - en bas uniquement sur desktop */}
         <div className="pb-12">
-          {/* Enhanced Navigation */}
           {slides.length > 1 && (
             <motion.div
-              className="absolute bottom-1 left-1/2 transform -translate-x-1/2 z-20 "
+              className="absolute bottom-1 left-1/2 transform -translate-x-1/2 z-20 hidden lg:block"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
             >
-              <div className="flex items-center space-x-6 mt-28 rounded-full p-4 ">
+              <div className="flex items-center space-x-6 mt-28 rounded-full p-4">
                 <Button
                   variant="ghost"
                   size="icon"
@@ -467,7 +543,6 @@ export default function TripPage({
                 >
                   <ChevronLeft className="h-6 w-6 group-hover:-translate-x-0.5 transition-transform" />
                 </Button>
-
                 <div className="flex space-x-3">
                   {slides.map((slide, index) => (
                     <motion.button
@@ -506,7 +581,6 @@ export default function TripPage({
                     </motion.button>
                   ))}
                 </div>
-
                 <Button
                   variant="ghost"
                   size="icon"
@@ -521,6 +595,7 @@ export default function TripPage({
         </div>
       </div>
 
+      {/* Modals - reste inchangé */}
       <AnimatePresence>
         {showDetails && (
           <motion.div
@@ -551,7 +626,6 @@ export default function TripPage({
                     <X className="h-6 w-6" />
                   </Button>
                 </div>
-
                 <div className="overflow-x-hidden rounded-lg h-[400px]">
                   <Tabs defaultValue="programme" className="w-full">
                     <TabsList className="grid w-full grid-cols-3 m-4">
@@ -559,7 +633,6 @@ export default function TripPage({
                       <TabsTrigger value="inclus">Inclus</TabsTrigger>
                       <TabsTrigger value="non-inclus">Non inclus</TabsTrigger>
                     </TabsList>
-
                     <TabsContent
                       value="programme"
                       className="p-6 space-y-6 h-[400px] overflow-x-hidden overflow-y-auto"
@@ -587,7 +660,6 @@ export default function TripPage({
                                 <p className="text-gray-600 mb-4">
                                   {details.description}
                                 </p>
-
                                 <div className="space-y-4">
                                   <div>
                                     <h4 className="font-semibold text-gray-800 mb-2">
@@ -609,7 +681,6 @@ export default function TripPage({
                                       )}
                                     </ul>
                                   </div>
-
                                   {details.repas &&
                                     details.repas.length > 0 && (
                                       <div>
@@ -635,7 +706,6 @@ export default function TripPage({
                           )
                         )}
                     </TabsContent>
-
                     <TabsContent
                       value="inclus"
                       className="p-6 h-[400px] overflow-x-hidden overflow-y-auto"
@@ -662,7 +732,6 @@ export default function TripPage({
                         </CardContent>
                       </Card>
                     </TabsContent>
-
                     <TabsContent
                       value="non-inclus"
                       className="p-6 h-[400px] overflow-x-hidden overflow-y-auto"
@@ -670,7 +739,7 @@ export default function TripPage({
                       <Card>
                         <CardHeader className="pt-2">
                           <CardTitle className="text-red-600 flex items-center">
-                            <XIcon className="h-5 w-5 mr-2" />
+                            <XCircle className="h-5 w-5 mr-2" />
                             Non inclus dans le prix
                           </CardTitle>
                         </CardHeader>
@@ -681,7 +750,7 @@ export default function TripPage({
                                 key={index}
                                 className="flex items-start space-x-3"
                               >
-                                <XIcon className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
+                                <XCircle className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
                                 <span className="text-gray-700">{item}</span>
                               </li>
                             ))}
@@ -707,7 +776,7 @@ export default function TripPage({
             transition={{ duration: 0.3 }}
           >
             <motion.div
-              className="bg-white rounded-lg w-full max-w-md p-6 shadow-lg"
+              className="bg-white rounded-lg w-full max-w-xl p-6 shadow-lg"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
